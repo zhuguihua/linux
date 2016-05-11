@@ -706,6 +706,8 @@ int acpi_map_cpu2node(acpi_handle handle, int cpu, int physid)
 		set_apicid_to_node(physid, nid);
 		numa_set_node(cpu, nid);
 	}
+	printk(KERN_INFO "debug: acpi_map_cpu2node() cpu = %d\n", cpu);
+	printk(KERN_INFO "debug: acpi_map_cpu2node() nid = %d\n", nid);
 #endif
 	return 0;
 }

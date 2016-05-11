@@ -358,8 +358,10 @@ static int acpi_get_pxm(acpi_handle h)
 	do {
 		handle = phandle;
 		status = acpi_evaluate_integer(handle, "_PXM", NULL, &pxm);
-		if (ACPI_SUCCESS(status))
+		if (ACPI_SUCCESS(status)) {
+			printk(KERN_INFO "debug: acpi_get_pxm() stay on here\n");
 			return pxm;
+		}
 		status = acpi_get_parent(handle, &phandle);
 	} while (ACPI_SUCCESS(status));
 	return -1;
@@ -371,6 +373,7 @@ int acpi_get_node(acpi_handle handle)
 
 	pxm = acpi_get_pxm(handle);
 
+	printk(KERN_INFO "debug: acpi_get_node() pxm = %d\n", pxm);
 	return acpi_map_pxm_to_node(pxm);
 }
 EXPORT_SYMBOL(acpi_get_node);

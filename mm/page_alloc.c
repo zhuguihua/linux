@@ -3373,10 +3373,13 @@ retry_cpuset:
 		 * can deadlock because I/O on the device might not
 		 * complete.
 		 */
+		printk(KERN_INFO "debug: __alloc_pages_nodemask() stay on 1\n");
 		alloc_mask = memalloc_noio_flags(gfp_mask);
 		ac.spread_dirty_pages = false;
 
+		printk(KERN_INFO "debug: __alloc_pages_nodemask() stay on 2\n");
 		page = __alloc_pages_slowpath(alloc_mask, order, &ac);
+		printk(KERN_INFO "debug: __alloc_pages_nodemask() stay on 3\n");
 	}
 
 	if (kmemcheck_enabled && page)

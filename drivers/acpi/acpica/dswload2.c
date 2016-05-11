@@ -525,6 +525,7 @@ acpi_status acpi_ds_load2_end_op(struct acpi_walk_state *walk_state)
 		switch (op->common.aml_opcode) {
 		case AML_PROCESSOR_OP:
 
+			printk(KERN_INFO "debug: create a processor\n");
 			status = acpi_ex_create_processor(walk_state);
 			break;
 

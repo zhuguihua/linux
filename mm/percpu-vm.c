@@ -87,6 +87,8 @@ static int pcpu_alloc_pages(struct pcpu_chunk *chunk,
 	int i;
 
 	for_each_possible_cpu(cpu) {
+		printk(KERN_INFO "debug: pcpu_alloc_pages() cpu = %d\n", cpu);
+		printk(KERN_INFO "debug: pcpu_alloc_pages() nid = %d\n", cpu_to_node(cpu));
 		for (i = page_start; i < page_end; i++) {
 			struct page **pagep = &pages[pcpu_page_idx(cpu, i)];
 

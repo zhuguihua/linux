@@ -392,6 +392,7 @@ acpi_status acpi_ex_create_processor(struct acpi_walk_state *walk_state)
 	/* Initialize the processor object from the operands */
 
 	obj_desc->processor.proc_id = (u8) operand[1]->integer.value;
+	printk(KERN_INFO "debug: acpi_ex_create_processor() acpi_id = %d\n", obj_desc->processor.proc_id);
 	obj_desc->processor.length = (u8) operand[3]->integer.value;
 	obj_desc->processor.address =
 	    (acpi_io_address) operand[2]->integer.value;

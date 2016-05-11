@@ -1167,7 +1167,9 @@ retry_pop:
 				  0, PCPU_EMPTY_POP_PAGES_HIGH);
 	}
 
+	printk(KERN_INFO "debug: pcpu_balance_workfn() pcpu_nr_slots = %d\n", pcpu_nr_slots);
 	for (slot = pcpu_size_to_slot(PAGE_SIZE); slot < pcpu_nr_slots; slot++) {
+		printk(KERN_INFO "debug: pcpu_balance_workfn() slot = %d\n", slot);
 		int nr_unpop = 0, rs, re;
 
 		if (!nr_to_pop)

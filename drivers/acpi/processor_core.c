@@ -282,12 +282,14 @@ static bool map_processor(acpi_handle handle, phys_cpuid_t *phys_id, int *cpuid)
 		if (ACPI_FAILURE(status))
 			return false;
 		acpi_id = object.processor.proc_id;
+		printk(KERN_INFO "debug: map_processor() stay on processor, acpi_id = %d\n", acpi_id);
 		break;
 	case ACPI_TYPE_DEVICE:
 		status = acpi_evaluate_integer(handle, "_UID", NULL, &tmp);
 		if (ACPI_FAILURE(status))
 			return false;
 		acpi_id = tmp;
+		printk(KERN_INFO "debug: map_processor() stay on device, acpi_id = %d\n", acpi_id);
 		break;
 	default:
 		return false;
@@ -314,11 +316,20 @@ set_processor_node_mapping(acpi_handle handle, u32 lvl, void *context,
 		return AE_ERROR;
 
 	acpi_map_cpu2node(handle, cpu_id, phys_id);
+	printk(KERN_INFO "debug: set_processor_node_mapping() cpu_id = %d\n", cpu_id);
+	printk(KERN_INFO "debug: set_processor_node_mapping() phys_id = %d\n", phys_id);
 	return AE_OK;
 }
 
 void __init acpi_set_processor_mapping(void)
 {
+	unsigned int cpu;
+	int num_cpus = 0;
+	for_each_possible_cpu(cpu) {
+		num_cpus++;
+	}
+	printk(KERN_INFO "debug: acpi_set_processor() possible cpus = %d\n", num_cpus);
+
 	/* Set persistent cpu <-> node mapping for all processors. */
 	acpi_walk_namespace(ACPI_TYPE_PROCESSOR, ACPI_ROOT_OBJECT,
 			    ACPI_UINT32_MAX, set_processor_node_mapping,

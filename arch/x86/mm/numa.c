@@ -97,6 +97,8 @@ void numa_set_node(int cpu, int node)
 #endif
 	per_cpu(x86_cpu_to_node_map, cpu) = node;
 
+	printk(KERN_INFO "debug: numa_set_node() cpu = %d\n", cpu);
+	printk(KERN_INFO "debug: numa_set_node() node = %d\n", node);
 	set_cpu_numa_node(cpu, node);
 }
 
@@ -727,6 +729,7 @@ void __init x86_numa_init(void)
 
 static void __init init_memory_less_node(int nid)
 {
+	printk(KERN_INFO "debug: init_memory_less_node()\n");
 	unsigned long zones_size[MAX_NR_ZONES] = {0};
 	unsigned long zholes_size[MAX_NR_ZONES] = {0};
 
@@ -771,6 +774,8 @@ void __init init_cpu_to_node(void)
 			init_memory_less_node(node);
 
 		numa_set_node(cpu, node);
+		printk(KERN_INFO "debug: init_cpu_to_node() cpu = %d\n", cpu);
+		printk(KERN_INFO "debug: init_cpu_to_node() node = %d\n", node);
 	}
 }
 

@@ -294,6 +294,8 @@ acpi_evaluate_integer(acpi_handle handle,
 	buffer.length = sizeof(union acpi_object);
 	buffer.pointer = &element;
 	status = acpi_evaluate_object(handle, pathname, arguments, &buffer);
+	printk(KERN_INFO "debug: acpi_evaluate_integer() status = %d\n", status);
+	printk(KERN_INFO "debug: acpi_evaluate_integer() type = %d\n", element.type);
 	if (ACPI_FAILURE(status)) {
 		acpi_util_eval_error(handle, pathname, status);
 		return status;
